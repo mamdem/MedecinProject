@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,9 +14,11 @@ import { MypatientsComponent } from './pages/mypatients/mypatients.component';
 import { ScheduletimingsComponent } from './pages/scheduletimings/scheduletimings.component';
 import { AvailabletimingsComponent } from './pages/availabletimings/availabletimings.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ng6-toastr-notifications'; 
+import * as fr from '@angular/common/locales/fr';
+import { ProfileSettingComponent } from './pages/profile-setting/profile-setting.component';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     ScheduletimingsComponent,
     AvailabletimingsComponent,
     AppointmentsComponent,
+    ProfileSettingComponent,
     
   ],
   imports: [
@@ -43,7 +46,11 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,{ provide: LOCALE_ID, useValue: 'fr-FR'},{provide: LocationStrategy,useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor() {
+    registerLocaleData(fr.default);
+  }
+}

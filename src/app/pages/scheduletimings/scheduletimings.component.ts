@@ -28,32 +28,25 @@ export class ScheduletimingsComponent implements OnInit {
   apiServiceUrl = environment.apiBaseUrl
   
 
-  constructor(private toastr: ToastrManager, private router: Router, public vari: VariablesService, private datepipe: DatePipe,private http: HttpClient) { }
+  constructor( private router: Router, public vari: VariablesService, private datepipe: DatePipe,private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.posSlot = this.getDiffDays()
     this.vari.posclick=4
-    
     this.getAllSlots()
   }
-
-  showSuccess(title: string, desc: string){
-    this.toastr.successToastr(desc, title, {
-      position: 'top-center'
-    });
+ 
+  getDiffDays(){
+    var current = new Date();     // get current date  
+    var curr = new Date();
+    var firstday = current.getDate() - current.getDay() +1;  
+    var dateIndex = new Date(curr.setDate(firstday)) 
+    var _time =  (current.getTime()-dateIndex.getTime())
+    console.log("###################",_time / (1000 * 3600 * 24))
+    return _time / (1000 * 3600 * 24);
   }
 
-  showWarning(title: string, desc: string){
-    this.toastr.warningToastr(desc, title, {
-      position: 'top-center'
-    });
-  }
-
-  showError(title: string, desc: string){
-    this.toastr.errorToastr(desc, title, {
-      position: 'top-center'
-    });
-  }
-
+  
   addInput(){
     this.lesinputs.push({"heuredebut":"","heurefin":"", "idpatient":0})
   }
@@ -66,10 +59,9 @@ export class ScheduletimingsComponent implements OnInit {
     var current = new Date();     // get current date  
     var curr = new Date();
     var firstday = current.getDate() - current.getDay() +1;  
-    // var firstdate = new Date(curr.setDate(current.getDate() - current.getDay()+1));  
     var dateIndex = new Date(curr.setDate(firstday+index)) 
-    // console.log(index+1," jour: aujourd'hui = ",current,", ",this.days[index]," = ", dateIndex)
     if(current.getDate()==dateIndex.getDate()){
+      // this.posSlot=index
       // this.posSlot=index
       return true
     }
@@ -98,30 +90,32 @@ export class ScheduletimingsComponent implements OnInit {
       }).subscribe(
         (response: any)=>{
           if(response!=null){
-            this.showSuccess("Reussi","Créneaux ajoutés avec succés !")
+            // this.showSuccess("Reussi","Créneaux ajoutés avec succés !")
             this.getAllSlots()
           }else{
-            this.showError('Erreur serveur', "Veuillez réessayer !")
+            // this.showError('Erreur serveur', "Veuillez réessayer !")
           }
         },(error: HttpErrorResponse)=>{
-          this.showError("Erreur serveur", error.message)
+          // this.showError("Erreur serveur", error.message)
         }
       )
-    }else
-      this.showWarning("Impossible","Veuillez choisir un créneau horaire !")
+    }else{
+      
+    }
+      // this.showWarning("Impossible","Veuillez choisir un créneau horaire !")
   }
 
   getAllSlots(){
-    this.http.get<any>(`${this.apiServiceUrl}/rendezvous/all/`+this.vari.personne.idmedecin+`/`+this.vari.firstdate+`/`+this.vari.lastdate).subscribe(
+    this.http.get<any>(`${this.apiServiceUrl}/rendezvous/all/patient/`+this.vari.personne.idmedecin+`/`+this.vari.firstdate+`/`+this.vari.lastdate).subscribe(
       (response: any)=>{
         if(response!=null){
           this.allSlots=response
-          console.log(this.allSlots)
+          // console.log(this.allSlots)
         }else{
-          this.showError('Erreur serveur', "Veuillez réessayer !")
+          // this.showError('Erreur serveur', "Veuillez réessayer !")
         }
       },(error: HttpErrorResponse)=>{
-        this.showError("Erreur serveur", error.message)
+        // this.showError("Erreur serveur", error.message)
       }
     )
   } 

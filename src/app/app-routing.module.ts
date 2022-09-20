@@ -5,16 +5,18 @@ import { AvailabletimingsComponent } from './pages/availabletimings/availabletim
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MypatientsComponent } from './pages/mypatients/mypatients.component';
+import { ProfileSettingComponent } from './pages/profile-setting/profile-setting.component';
 import { ScheduletimingsComponent } from './pages/scheduletimings/scheduletimings.component';
 
 const routes: Routes = [
-  {path: '',   redirectTo: '/login', pathMatch: 'full'},
+  {path: '',redirectTo: '/login', pathMatch: 'full'},
   {path: 'dashboard', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'scheduletimings', component: ScheduletimingsComponent},
   {path: 'mypatients', component: MypatientsComponent},
   {path: 'availabletimings', component: AvailabletimingsComponent},
-  {path: 'appointments', component: AppointmentsComponent}
+  {path: 'appointments', component: AppointmentsComponent},
+  {path: 'profile-setting', component: ProfileSettingComponent}
 ];
 
 @NgModule({

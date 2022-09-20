@@ -16,14 +16,55 @@ export class AvailabletimingsComponent implements OnInit {
   apiServiceUrl = environment.apiBaseUrl
 
   availablesTime: any[]
+  availablesTimeToSend: any[]
+  checks: boolean[]
 
-  _date=""
+  _date: any
+  _plage: number
 
-  constructor(public vari: VariablesService,private toastr: ToastrManager, private router: Router, private datepipe: DatePipe,private http: HttpClient) { }
+  constructor(private toastr: ToastrManager,public vari: VariablesService,private router: Router, private datepipe: DatePipe,private http: HttpClient) { }
 
   ngOnInit(): void {
     this.vari.posclick=5
-    this.getAllAvailableTime()
+    this._date=this.datepipe.transform(new Date(),"yyyy-MM-dd")
+    this._plage=30
+    this.getAllAvailableTime()    
+  }
+
+  saveAvailableTime(){
+    this.availablesTimeToSend=[]
+    for(let i=0;i<this.checks.length;i++){
+      if(this.checks[i]){
+        this.availablesTimeToSend.push(this.availablesTime[i])
+      }
+    }
+    if(this.availablesTimeToSend.length>0){
+      // var dateIndex = this.getDateIndex(index)
+      this.http.post<any>(`${this.apiServiceUrl}/rendezvous/add`, {
+        "datecreation":this._date,
+        "description":"description",
+        "idmedecin":this.vari.personne.idmedecin,
+        "idpatient":0,
+        "creneaux":this.availablesTimeToSend
+      }).subscribe(
+        (response: any)=>{
+          if(response!=null){
+            if(this.availablesTimeToSend.length>1)
+              this.showSuccess("Reussi",this.availablesTimeToSend.length+" créneaux ajoutés avec succés !")
+            else
+              this.showSuccess("Reussi","1 créneau ajouté avec succés !")
+            this.getAllAvailableTime()
+          }else{
+            this.showError('Erreur serveur', "Veuillez réessayer !")
+          }
+        },(error: HttpErrorResponse)=>{
+          this.showError("Erreur serveur", error.message)
+        }
+      )
+    }else{
+      this.showWarning("Impossible","Veuillez choisir un créneau horaire !")
+    }
+    // console.log(this.availablesTimeToSend)
   }
 
   getAllAvailableTime(){
@@ -32,22 +73,28 @@ export class AvailabletimingsComponent implements OnInit {
         "idmedecin":1,
         "date":this._date,
         "startTime":"09:00",
-        "ecartTime":30
+        "ecartTime":this._plage
       }).subscribe(
         (response: any)=>{
           if(response!=null){
             this.availablesTime = response
+            
+            this.checks=[]
+            for(let av of response){
+              this.checks.push(false)
+            }
           }else{
-            this.showError('Erreur serveur', "Veuillez réessayer !")
+            // this.showError('Erreur serveur', "Veuillez réessayer !")
           }
         },(error: HttpErrorResponse)=>{
-          this.showError("Erreur serveur", error.message)
+          // this.showError("Erreur serveur", error.message)
         }
       )
     }
   }
 
 
+  
   showSuccess(title: string, desc: string){
     this.toastr.successToastr(desc, title, {
       position: 'top-center'
@@ -65,5 +112,6 @@ export class AvailabletimingsComponent implements OnInit {
       position: 'top-center'
     });
   }
+
 
 }

@@ -18,7 +18,7 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Calendrier des horaires du {{this.vari.firstdate}} au {{this.vari.lastdate}}</h4>
+                                    <h4 class="card-title">Calendrier des horaires du {{this.vari.firstdate | date:"mediumDate"}} au {{this.vari.lastdate | date:"mediumDate"}}</h4>
                                     <div class="profile-box">
                                         <div class="row">
 
@@ -58,18 +58,6 @@
 
                                                     <!-- Schedule Content -->
                                                     <div class="tab-content schedule-cont">
-                                                        <!-- Sunday Slot -->
-
-                                                        <!-- <div id="slot_sunday" class="tab-pane fade">
-                                                            <h4 class="card-title d-flex justify-content-between">
-                                                                <span>Time Slots</span>
-                                                                <a class="edit-link" data-bs-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                            </h4>
-                                                            <p class="text-muted mb-0">Not Available</p>
-                                                        </div> -->
-                                                        <!-- /Sunday Slot -->
-
-                                                        <!-- Monday Slot -->
                                                         <div id="slot_day{{i}}" [ngClass]="{'tab-pane fade':true, 'show active':i==posSlot} " *ngFor="let day of days; let i=index">
                                                             <h4 class="card-title d-flex justify-content-between">
                                                                 <span>Créneaux horaires</span>
@@ -87,25 +75,6 @@
                                                                         </ng-container>
                                                                     </div>
                                                                 </div>
-
-                                                                <!-- <div class="doc-slot-list">
-                                                                    11:30 pm - 1:30 pm
-                                                                    <a href="javascript:void(0)" class="delete_schedule">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="doc-slot-list">
-                                                                    3:00 pm - 5:00 pm
-                                                                    <a href="javascript:void(0)" class="delete_schedule">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="doc-slot-list">
-                                                                    6:00 pm - 11:00 pm
-                                                                    <a href="javascript:void(0)" class="delete_schedule">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </a>
-                                                                </div> -->
                                                             </div>
                                                             <!-- /Slot List -->
 

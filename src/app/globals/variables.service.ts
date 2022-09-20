@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class VariablesService {
-
+  
   idpers: number=0
   personne: any=null
 
@@ -18,7 +18,8 @@ export class VariablesService {
 
   constructor(private datepipe: DatePipe) {
     var curr = new Date; // get current date
-    var current = new Date();     // get current date  
+    var current = new Date(); // get current date
+
     var firstday = current.getDate() - current.getDay() +1;    
     this.firstdate = this.datepipe.transform(new Date(curr.setDate(current.getDate() - current.getDay()+1)),'yyyy-MM-dd');    
     this.lastdate = this.datepipe.transform(new Date(curr.setDate(firstday+6)),'yyyy-MM-dd');

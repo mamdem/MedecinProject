@@ -18,28 +18,43 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Schedule Timings</h4>
+                                    <!-- <h4 class="card-title">Schedule Timings</h4> -->
                                     <div class="profile-box">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-12 avail-time">
+                                        <div class="row justify-content-center d-flex">
+                                            <div class="col-sm-4 col-12 avail-time">
                                                 <div class="mb-3">
                                                     <div class="schedule-calendar-col justify-content-start">
                                                         <form class="d-flex flex-wrap">
                                                             <span class="input-group-text">Date:</span>
                                                             <div class="me-3">
-                                                                <input [(ngModel)]="_date" type="date" class="form-control" name="_date" id="schedule_date" value="2021-05-21" min="{{this.vari.firstdate}}" max="{{this.vari.lastdate}}" (change)="getAllAvailableTime()">
-                                                            </div>
-                                                            <div class="search-time-mobile">
-                                                                <input type="submit" name="submit" value="Search" class="btn btn-primary h-100">
+                                                                <input [(ngModel)]="_date" type="date" class="form-control" name="_date" id="schedule_date" min="{{this.vari.firstdate}}" max="{{this.vari.lastdate}}" (change)="getAllAvailableTime()">
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-3 col-12 avail-time">
+                                                <div class="mb-3">
+                                                    <div class="schedule-calendar-col justify-content-start">
+                                                        <form class="d-flex flex-wrap">
+                                                            <span class="input-group-text">Plage(min):</span>
+                                                            <div class="me-3">
+                                                                <select [(ngModel)]="_plage" type="date" (change)="getAllAvailableTime()" class="form-control" name="_plage" id="schedule_date">
+                                                                    <option value="30">30</option>
+                                                                    <option value="60">60</option>
+                                                                    <option value="120">120</option>
+                                                                </select>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <h3 class="h3 text-center book-btn2 mt-3 px-5 py-1 mx-3 rounded">1<sup>st</sup> Session </h3>
+                                                <!-- <h3 class="h3 text-center book-btn2 mt-3 px-5 py-1 mx-3 rounded">1<sup>st</sup> Session </h3> -->
                                                 <div class="text-center mt-3">
                                                     <h4 class="h4 mb-2">Heure de début </h4>
                                                     <span class="h4 btn btn-outline-primary"><b> 09:00 AM</b></span>
@@ -49,7 +64,7 @@
                                                 <div class="token-slot mt-2">
                                                     <div class="form-check-inline visits" *ngFor="let availableTime of availablesTime; let i=index">
                                                         <label class="visit-btns">
-                                                            <input type="checkbox" class="form-check-input"  value="18">
+                                                            <input type="checkbox" name="{{checks[i]}}" [(ngModel)]="checks[i]" class="form-check-input"  value="18">
                                                             <span class="visit-rsn" data-bs-toggle="tooltip" title="02:40 PM">{{availableTime.heuredebut}} à {{availableTime.heurefin}}</span>
                                                         </label>
                                                     </div>
@@ -59,7 +74,7 @@
                                     </div>
                                     <br>
                                     <div class="text-center">
-                                        <button class="btn btn-primary">Enregistrer</button>
+                                        <button (click)="saveAvailableTime()" class="btn btn-primary">Enregistrer</button>
                                     </div>
                                 </div>
                             </div>
