@@ -24,13 +24,14 @@
 
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label>Timing Slot Duration</label>
-                                                    <select class="select form-control">
-                                                        <option>-</option>
-                                                        <option>15 mins</option>
-                                                        <option selected="selected">30 mins</option>  
-                                                        <option>45 mins</option>
-                                                        <option>1 Hour</option>
+                                                    <label>Durée du créneaux horaire</label>
+                                                    <select [(ngModel)]="search" (change)="filter()" name="search" class="select form-control">
+                                                        <option value="">Tout</option>
+                                                        <option value="15">15 mins</option>
+                                                        <option value="30">30 mins</option>  
+                                                        <option value="45">45 mins</option>
+                                                        <option value="60">1 heure</option>
+                                                        <option value="120">2 heures</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -39,10 +40,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card schedule-widget mb-0">
-
                                                     <!-- Schedule Header -->
                                                     <div class="schedule-header">
-
                                                         <!-- Schedule Nav -->
                                                         <div class="schedule-nav">
                                                             <ul class="nav nav-tabs nav-justified">
@@ -52,7 +51,6 @@
                                                             </ul>
                                                         </div>
                                                         <!-- /Schedule Nav -->
-
                                                     </div>
                                                     <!-- /Schedule Header -->
 
@@ -61,7 +59,7 @@
                                                         <div id="slot_day{{i}}" [ngClass]="{'tab-pane fade':true, 'show active':i==posSlot} " *ngFor="let day of days; let i=index">
                                                             <h4 class="card-title d-flex justify-content-between">
                                                                 <span>Créneaux horaires</span>
-                                                                <a class="edit-link" data-bs-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit me-1"></i>Edit</a>
+                                                                <a class="edit-link" data-bs-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit me-1"></i>Ajouter</a>
                                                             </h4>
                                                             <!-- Slot List -->
                                                             <div class="doc-times">

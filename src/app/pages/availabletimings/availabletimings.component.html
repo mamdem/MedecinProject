@@ -37,12 +37,14 @@
                                                 <div class="mb-3">
                                                     <div class="schedule-calendar-col justify-content-start">
                                                         <form class="d-flex flex-wrap">
-                                                            <span class="input-group-text">Plage(min):</span>
+                                                            <span class="input-group-text">Plage: </span>
                                                             <div class="me-3">
                                                                 <select [(ngModel)]="_plage" type="date" (change)="getAllAvailableTime()" class="form-control" name="_plage" id="schedule_date">
-                                                                    <option value="30">30</option>
-                                                                    <option value="60">60</option>
-                                                                    <option value="120">120</option>
+                                                                    <option value="15">15 mins</option>
+                                                                    <option value="30">30 mins</option>
+                                                                    <option value="45">45 mins</option>
+                                                                    <option value="60">1 heure</option>
+                                                                    <option value="120">2 heures</option>
                                                                 </select>
                                                             </div>
                                                         </form>

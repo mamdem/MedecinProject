@@ -13,52 +13,53 @@
                 </div>
 
                 <div class="col-md-7 col-lg-8 col-xl-9">
-                    <div class="appointments">
-
-                        <!-- Appointment List -->
-                        <div class="justify-content-center d-flex mt-5 mb-3" style="font-size: 25px;" *ngIf="allSlotsMedecin.length==0">Aucune réservation</div>
-                        <div class="appointment-list" *ngFor="let slot of allSlotsMedecin; let i=index">
-                            <div class="profile-info-widget">
-                                <a href="patient-profile.html" class="booking-doc-img">
-                                    <img src="assets/img/patients/patient.jpg" alt="User Image">
-                                </a>
-                                <div class="profile-det-info">
-                                    <h3><a href="patient-profile.html">{{slot.patient.prenom}} {{slot.patient.nom}}</a></h3>
-                                    <div class="patient-details">
-                                        <h5 style="font-weight: 500;"><i class="far fa-clock"></i> {{slot.rendezvous.datecreation | date:"fullDate"}} de {{slot.rendezvous.heuredebut.substring(0,5)}} à {{slot.rendezvous.heurefin.substring(0,5)}}</h5>
-                                        <h5><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>
-                                        <h5><i class="fas fa-envelope"></i> {{slot.patient.email}}</h5>
-                                        <h5 class="mb-0"><i class="fas fa-phone"></i>{{slot.patient.tel}}</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="appointments">
+                                <!-- Appointment List -->
+                                <div class="justify-content-center d-flex mt-5 mb-5" style="font-size: 18px;" *ngIf="allSlotsMedecin.length==0">Les demandes de réservation s'afficheront ici</div>
+                                <div class="appointment-list" *ngFor="let slot of allSlotsMedecin; let i=index">
+                                    <div class="profile-info-widget">
+                                        <a href="patient-profile.html" class="booking-doc-img">
+                                            <img src="assets/img/patients/patient.jpg" alt="User Image">
+                                        </a>
+                                        <div class="profile-det-info">
+                                            <h3><a href="patient-profile.html">{{slot.patient.prenom}} {{slot.patient.nom}}</a></h3>
+                                            <div class="patient-details">
+                                                <h5 style="font-weight: 500;"><i class="far fa-clock"></i> {{slot.rendezvous.datecreation | date:"fullDate"}} de {{slot.rendezvous.heuredebut.substring(0,5)}} à {{slot.rendezvous.heurefin.substring(0,5)}}</h5>
+                                                <h5><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>
+                                                <h5><i class="fas fa-envelope"></i> {{slot.patient.email}}</h5>
+                                                <h5 class="mb-0"><i class="fas fa-phone"></i>{{slot.patient.tel}}</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="appointment-action" *ngIf="slot.status==0">
+                                        <a href="#" class="btn btn-sm bg-info-light" data-bs-toggle="modal" data-bs-target="#appt_details">
+                                            <i class="far fa-eye"></i> Voir
+                                        </a>
+                                        <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, 1, i, slot.patient.idpatient)" class="btn btn-sm bg-success-light">
+                                            <i class="fas fa-check"></i> Accepter
+                                        </a>
+                                        <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, -1, i, slot.patient.idpatient)" class="btn btn-sm bg-danger-light">
+                                            <i class="fas fa-trash-alt"></i> Rejeter
+                                        </a>
+                                    </div>
+                                    <div class="appointment-action" *ngIf="slot.status==1">
+                                        <span class="btn btn-sm bg-success-light rounded-pill" style="font-size: 15px; margin-right: 10px;">Confirmé</span>
+                                        <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, 0, i,slot.patient.idpatient)" class="btn btn-sm bg-warning-light">
+                                            <i class="fas fa-times"></i> Annuler
+                                        </a>
+                                    </div>
+                                    <div class="appointment-action" *ngIf="slot.status==-1">
+                                        <span class="tn btn-sm bg-danger-light rounded-pill" style="font-size: 15px;margin-right: 10px;">Rejeté</span>
+                                        <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, 0, i,slot.patient.idpatient)" class="btn btn-sm bg-warning-light">
+                                            <i class="fas fa-times"></i> Annuler
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="appointment-action" *ngIf="slot.status==0">
-                                <a href="#" class="btn btn-sm bg-info-light" data-bs-toggle="modal" data-bs-target="#appt_details">
-                                    <i class="far fa-eye"></i> Voir
-                                </a>
-                                <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, 1, i, slot.patient.idpatient)" class="btn btn-sm bg-success-light">
-                                    <i class="fas fa-check"></i> Accepter
-                                </a>
-                                <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, -1, i, slot.patient.idpatient)" class="btn btn-sm bg-danger-light">
-                                    <i class="fas fa-trash-alt"></i> Rejeter
-                                </a>
-                            </div>
-                            <div class="appointment-action" *ngIf="slot.status==1">
-                                <span class="btn btn-sm bg-success-light rounded-pill" style="font-size: 15px; margin-right: 10px;">Confirmé</span>
-                                <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, 0, i,slot.patient.idpatient)" class="btn btn-sm bg-warning-light">
-                                    <i class="fas fa-times"></i> Annuler
-                                </a>
-                            </div>
-                            <div class="appointment-action" *ngIf="slot.status==-1">
-                                <span class="tn btn-sm bg-danger-light rounded-pill" style="font-size: 15px;margin-right: 10px;">Rejeté</span>
-                                <a href="javascript:void(0);" (click)="updateReservationStatus(slot.rendezvous.idrdv, 0, i,slot.patient.idpatient)" class="btn btn-sm bg-warning-light">
-                                    <i class="fas fa-times"></i> Annuler
-                                </a>
+                                <!-- /Appointment List -->
                             </div>
                         </div>
-                        <!-- /Appointment List -->
-
-
                     </div>
                 </div>
             </div>

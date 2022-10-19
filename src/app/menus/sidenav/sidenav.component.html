@@ -2,8 +2,8 @@
 <div class="profile-sidebar">
     <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
-            <a href="#" class="booking-doc-img">
-                <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+            <a href="#" routerLink="/profile-setting" class="booking-doc-img">
+                <img src="{{apibaseurl+this.vari.personne.profil}}" alt="User Image">
             </a>
             <div class="profile-det-info">
                 <h3>Dr. {{vari.personne.prenom}} {{vari.personne.nom}}</h3>

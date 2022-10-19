@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 export class ScheduletimingsComponent implements OnInit {
 
   _number=1
+  search=""
 
   lesinputs=[{"heuredebut":"", "heurefin":"", "idpatient":0}]
   
@@ -35,6 +36,10 @@ export class ScheduletimingsComponent implements OnInit {
     this.vari.posclick=4
     this.getAllSlots()
   }
+
+  filter(){
+
+  }
  
   getDiffDays(){
     var current = new Date();     // get current date  
@@ -42,7 +47,6 @@ export class ScheduletimingsComponent implements OnInit {
     var firstday = current.getDate() - current.getDay() +1;  
     var dateIndex = new Date(curr.setDate(firstday)) 
     var _time =  (current.getTime()-dateIndex.getTime())
-    console.log("###################",_time / (1000 * 3600 * 24))
     return _time / (1000 * 3600 * 24);
   }
 
@@ -110,7 +114,7 @@ export class ScheduletimingsComponent implements OnInit {
       (response: any)=>{
         if(response!=null){
           this.allSlots=response
-          // console.log(this.allSlots)
+          console.log(this.allSlots)
         }else{
           // this.showError('Erreur serveur', "Veuillez réessayer !")
         }
