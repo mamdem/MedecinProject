@@ -15,7 +15,8 @@ export class ProfileSettingComponent implements OnInit {
 
   apiServiceUrl = environment.apiBaseUrl
 
-  apibaseurl = environment.directory
+  medecinDirectory = environment.medecinDirectory
+  cliniqueDirectory = environment.cliniqueDirectory
 
   email=""
   prenom=""
@@ -32,6 +33,7 @@ export class ProfileSettingComponent implements OnInit {
   imageAsBase64=""
   cliniquesAsB64=[]
   cliniqueImages=[]
+  maxFiles =5
   
   constructor(private toastr: ToastrManager,public vari: VariablesService,private router: Router, private datepipe: DatePipe,private http: HttpClient) {
     
@@ -49,9 +51,7 @@ export class ProfileSettingComponent implements OnInit {
     this.clinique_nom=this.vari.personne.structure.nom
     this.clinique_latitude=this.vari.personne.structure.latitude
     this.clinique_longitude=this.vari.personne.structure.longitude
-    
-
-    console.log(this.vari.personne)
+    this.cliniqueImages = this.vari.personne.structure.imageStructures
   }
 
   convertImageToBase64String(id: string){
@@ -63,31 +63,34 @@ export class ProfileSettingComponent implements OnInit {
       reader.readAsDataURL(inputFile.files[0]);
       reader.onloadend = ()=>{
           // @ts-ignore
-          this.imageAsBase64.push(reader.result.toString());//ceci est l'image1 en base64
+          this.imageAsBase64=(reader.result.toString());//ceci est l'image1 en base64
       }   
+      console.log(this.imageAsBase64)
     }
   }
 
-  convertListImageToBase64String(id: string){
-    let inputFile = <HTMLInputElement>document.getElementById(id);
-    let reader = new FileReader();
+  convertListImageToBase64String(){
+    let inputFile = <HTMLInputElement>document.getElementById("cliniques");
+    
     // @ts-ignore
     if (inputFile.files.length>0){
       // @ts-ignore
       for(let file of inputFile.files){
+         // @ts-ignore
+        let reader = new FileReader();
+         // @ts-ignore
         reader.readAsDataURL(file);
         reader.onloadend = ()=>{
             // @ts-ignore
-            this.cliniquesAsB64=reader.result.toString();//ceci est l'image1 en base64
-            
+            this.cliniquesAsB64.push(reader.result.toString().split(',')[1]);//ceci est l'image1 en base64
         }   
       }
       console.log(this.cliniquesAsB64)
     }
   }
 
-  changeDrop(){
-    alert("ok")
+  deleteFileAt(index: number){
+    this.cliniquesAsB64.splice(index,1)
   }
 
   saveChange(){
@@ -114,12 +117,27 @@ export class ProfileSettingComponent implements OnInit {
     }).subscribe(
       (response: any)=>{
         if(response!=null){
+          // this.saveImagesClinique(this.vari.personne.structure.id)
           sessionStorage.setItem("idpers", response.idmedecin)
           this.vari.idpers=response.idmedecin
           this.vari.personne=response
           sessionStorage.setItem("user", JSON.stringify(response))
           this.showSuccess("Reussi", "Enregistrement éffectué avec succés")
-          console.log(response)
+          // console.log(response)
+        }else{
+          this.showError('Erreur serveur', "Veuillez réessayer !")
+        }
+      },(error: HttpErrorResponse)=>{
+        this.showError("Erreur serveur", error.message)
+      }
+    )
+  }
+
+  saveImagesClinique(structure: number){
+    this.http.post<any>(`${this.apiServiceUrl}/imageClinique/edit/`+structure,this.cliniquesAsB64).subscribe(
+      (response: any)=>{
+        if(response!=null){
+          this.saveChange()
         }else{
           this.showError('Erreur serveur', "Veuillez réessayer !")
         }

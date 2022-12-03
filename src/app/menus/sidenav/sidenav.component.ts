@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SidenavComponent implements OnInit {
 
-  apibaseurl=environment.directory
+  apibaseurl=environment.medecinDirectory
 
   constructor(public vari: VariablesService, private router: Router) { }
 
