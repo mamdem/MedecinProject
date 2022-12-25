@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:8080',
-  medecinDirectory:'../../../assets/imguploaded/medecin/',
-  cliniqueDirectory:'../../../assets/imguploaded/clinique/'
+  medecinDirectory:'http://192.168.1.126/imguploaded/medecin/',
+  cliniqueDirectory:'http://192.168.1.126/imguploaded/clinique/'
 };
 
 /*

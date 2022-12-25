@@ -110,7 +110,7 @@ export class ScheduletimingsComponent implements OnInit {
   }
 
   getAllSlots(){
-    this.http.get<any>(`${this.apiServiceUrl}/rendezvous/all/patient/`+this.vari.personne.idmedecin+`/`+this.vari.firstdate+`/`+this.vari.lastdate).subscribe(
+    this.http.get<any>(`${this.apiServiceUrl}/rendezvous/all/`+this.vari.personne.idmedecin+`/`+this.vari.firstdate+`/`+this.vari.lastdate).subscribe(
       (response: any)=>{
         if(response!=null){
           this.allSlots=response
