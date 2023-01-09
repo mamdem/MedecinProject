@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ng6-toastr-notifications'; 
 import * as fr from '@angular/common/locales/fr';
 import { ProfileSettingComponent } from './pages/profile-setting/profile-setting.component';
+import { AppointementTodayComponent } from './pages/appointement-today/appointement-today.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ProfileSettingComponent } from './pages/profile-setting/profile-setting
     AvailabletimingsComponent,
     AppointmentsComponent,
     ProfileSettingComponent,
+    AppointementTodayComponent,
     
   ],
   imports: [

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class VariablesService {
   
+  allSlotToday = []
   idpers: number=0
   personne: any=null
 

@@ -14,6 +14,7 @@ export class AppointmentsComponent implements OnInit {
 
   allSlotsMedecin: any[]
   apiServiceUrl = environment.apiBaseUrl
+  patientDirectory = environment.patientDirectory
 
   constructor(private toastr: ToastrManager,private http: HttpClient, private router: Router, public vari: VariablesService) { }
 

@@ -80,7 +80,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-8">
-                            <div class="card dash-cards">
+                            <div class="card dash-cards" style="height: 350px;">
                                 <div class="card-header">
                                     <div class="today-appointment-title">
                                         <h5 class="mb-0">Les rendez-vous du jour</h5>
@@ -93,10 +93,10 @@
                                     <div class="table-responsive">
                                         <table class="table table-hover table-center mb-0">
                                             <tbody>
-                                                <tr>
+                                                <tr *ngFor="let slot of allSlotToday | slice:0:3">
                                                     <td>
                                                         <h2 class="table-avatar ">
-                                                            <a href="patient-profile.html" class="avatar avatar-m me-2"><img class="avatar-img" src="assets/img/patients/patient.jpg" alt="User Image"></a>
+                                                            <a href="patient-profile.html" class="avatar avatar-m me-2"><img class="avatar-img" src="{{patientDirectory+slot.patient.profil}}" alt="User Image"></a>
                                                             <a href="patient-profile.html">Sara<span>#PT0016</span></a>
                                                         </h2>
                                                     </td>
@@ -109,56 +109,6 @@
                                                     <td class="text-center"><a class="call-status" href="video-call.html">voir détails</a></td>
                                                     <td class="text-center"><a href="patient-profile.html"><i class="fas fa-chevron-right"></i></a></td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar ">
-                                                            <a href="patient-profile.html" class="avatar avatar-m me-2"><img class="avatar-img" src="assets/img/patients/patient.jpg" alt="User Image"></a>
-                                                            <a href="patient-profile.html">Babacar<span>#PT0016</span></a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>
-                                                        <div class="consult-type d-flex flex-column">
-                                                            <h6 class="mb-0"> Dans 1h</h6>
-                                                            <!--<p class="mb-0"><img src="assets/img/icons/video-icon-sm.svg" alt=""> Video Call</p>-->
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center"><a class="call-status" href="video-call.html">voir détails</a></td>
-                                                    <td class="text-center"><a href="patient-profile.html"><i class="fas fa-chevron-right"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar ">
-                                                            <a href="patient-profile.html" class="avatar avatar-m me-2"><img class="avatar-img" src="assets/img/patients/patient.jpg" alt="User Image"></a>
-                                                            <a href="patient-profile.html">Ndeye Astou<span>#PT0016</span></a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>
-                                                        <div class="consult-type d-flex flex-column">
-                                                            <h6 class="mb-0">Dans 2h</h6>
-                                                            <!--<p class="mb-0"><img src="assets/img/icons/video-icon-sm.svg" alt=""> Video Call</p>-->
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center"><a class="call-status" href="video-call.html">voir détails</a></td>
-                                                    <td class="text-center"><a href="patient-profile.html"><i class="fas fa-chevron-right"></i></a></td>
-                                                </tr>
-                                                <!--
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="patient-profile.html" class="avatar avatar-m me-2"><img class="avatar-img" src="assets/img/patients/patient4.jpg" alt="User Image"></a>
-                                                            <a href="patient-profile.html">Hendry <span>#PT0016</span></a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>
-                                                        <div class="consult-type d-flex flex-column">
-                                                            <h6 class="mb-0">Online Consultation</h6>
-                                                            <p class="mb-0"><img src="assets/img/icons/chat-sm.svg" alt=""> Chat</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center"><a class="call-status" href="chat.html">Ongoing</a></td>
-                                                    <td class="text-center"><a href="patient-profile.html"><i class="fas fa-chevron-right"></i></a></td>
-                                                </tr>
-                                                -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -166,7 +116,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div class="card dash-cards">
+                            <div class="card dash-cards" style="height: 350px;">
                                 <div class="card-header">
                                     <div class="today-appointment-title">
                                         <h5 class="mb-0">Patients</h5>
